@@ -1,19 +1,16 @@
-FROM php:8.1-apache
+FROM php:8.1-cli
 
-# تثبيت امتدادات قاعدة البيانات وتفعيل mod_rewrite
-RUN docker-php-ext-install mysqli pdo pdo_mysql \
-    && a2enmod rewrite
+# تثبيت امتدادات قاعدة البيانات
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# تعطيل mpm_event ومنع تضارب موديلات Apache
-RUN a2dismod mpm_event || true \
-    && a2enmod mpm_prefork || true
+# تحديد مجلد العمل
+WORKDIR /var/www/html
 
-# تعديل المنفذ لـ 8080 لتطابق إعدادات Railway
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
-    && sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:8080>/' /etc/apache2/sites-available/000-default.conf
+# نسخ جميع ملفات المشروع
+COPY . .
 
-# نسخ الملفات وتحديد الصلاحيات
-COPY . /var/www/html/
-RUN chown -R www-data:www-data /var/www/html
-
+# فتح المنفذ 8080
 EXPOSE 8080
+
+# تشغيل خادم PHP المدمج مباشرة على المنفذ 8080
+CMD ["php", "-S", "0.0.0.0:8080"]
