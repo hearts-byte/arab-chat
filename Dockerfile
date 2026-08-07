@@ -1,30 +1,38 @@
 FROM php:8.1-apache
 
-# تثبيت الحزم والمكتبات المطلوبة (GD, ZIP, MySQLi, PDO)
+# تثبيت مكتبات النظام اللي يحتاجها GD و ZIP و باقي الإضافات
 RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
+    libgd-dev \
     libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libcurl4-openssl-dev \
     zip \
+    unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd zip mysqli pdo pdo_mysql
+    && docker-php-ext-install -j$(nproc) gd zip curl mbstring opcache pdo_mysql mysqli \
+    && rm -rf /var/lib/apt/lists/*
 
-# تفعيل mod_rewrite لعمل ملف .htaccess
+# تفعيل mod_rewrite حتى يشتغل ملف htaccess
 RUN a2enmod rewrite
 
-# تغيير منفذ Apache المباشر عبر ملف الموانئ
-RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf
-RUN sed -i 's/:80>/:8080>/g' /etc/apache2/sites-available/000-default.conf
+# السماح بـ .htaccess (AllowOverride All)
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
-# نسخ جميع ملفات السكريبت
+# نسخ ملفات المشروع
 COPY . /var/www/html/
 
-# إعطاء ملكية وصلاحيات شاملة لمجلدات السكريبت وملف القاعدة
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 777 /var/www/html
+# إعداد الصلاحيات للمجلدات المطلوبة في صفحة التثبيت
+RUN mkdir -p /var/www/html/avatar /var/www/html/cover /var/www/html/upload \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chmod -R 777 /var/www/html/avatar /var/www/html/cover /var/www/html/upload
 
-EXPOSE 8080
+# ملف تشغيل يهيّئ منفذ Railway الديناميكي
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
-# تشغيل Apache باستخدام الأيقونة المباشرة لتفادي خطأ MPM
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+EXPOSE 80
+
+CMD ["/usr/local/bin/start.sh"]
