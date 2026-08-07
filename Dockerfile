@@ -1,18 +1,9 @@
 FROM php:8.1-apache
 
-# تثبيت مكتبات النظام اللي يحتاجها GD و ZIP و باقي الإضافات
-RUN apt-get update && apt-get install -y \
-    libgd-dev \
-    libzip-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libcurl4-openssl-dev \
-    zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd zip curl mbstring opcache pdo_mysql mysqli \
-    && rm -rf /var/lib/apt/lists/*
+# تثبيت أداة تثبيت الإضافات الجاهزة (تتعامل مع كل الاعتماديات تلقائيًا)
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
+RUN install-php-extensions gd zip curl mbstring opcache pdo_mysql mysqli
 
 # تفعيل mod_rewrite حتى يشتغل ملف htaccess
 RUN a2enmod rewrite
