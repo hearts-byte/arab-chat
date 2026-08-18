@@ -1,0 +1,73 @@
+rules_version = '2';
+
+// ==========================================================================
+// قواعد أمان Firestore
+//
+// الفكرة الأساسية: الواجهة (React) يمكن التلاعب بها بالكامل من أدوات
+// المطوّر - أي طلب قراءة/كتابة يصل هنا مباشرة بغض النظر عمّا تعرضه الواجهة.
+// لذلك كل قرار "هل يُسمح بهذا؟" يجب أن يُكتب هنا، لا يكفي إخفاء زر في React.
+// ==========================================================================
+
+function signedIn() {
+  return request.auth != null;
+}
+
+function isOwner(userId) {
+  return signedIn() && request.auth.uid == userId;
+}
+
+// قائمة رتب "الإدارة" - يجب أن تُطابق STAFF_RANKS في src/constants/ranks.js
+function staffRanks() {
+  return [
+    'المالك', 'اونر اداري', 'اونر',
+    'سوبر اداري', 'مشرف', 'سوبر ادمن', 'ادمن'
+  ];
+}
+
+function myRank() {
+  return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rank;
+}
+
+function isStaff() {
+  return signedIn() && myRank() in staffRanks();
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- مستخدمون ---
+    match /users/{userId} {
+      allow read: if signedIn();
+      // ينشئ المستخدم مستنده الخاص فقط، ولا يقدر يمنح نفسه رتبة إدارية عند الإنشاء
+      allow create: if isOwner(userId)
+                    && !(request.resource.data.rank in staffRanks());
+      // يقدر يعدّل بياناته الخاصة (الاسم/الصورة) لكن ممنوع يغيّر رتبته بنفسه
+      allow update: if (isOwner(userId)
+                        && request.resource.data.rank == resource.data.rank)
+                    || isStaff(); // الإدارة فقط تقدر تغيّر رتبة غيرها
+      allow delete: if false;
+    }
+
+    // --- الغرف ---
+    match /rooms/{roomId} {
+      allow read: if signedIn();
+      allow create: if signedIn();
+      allow update, delete: if isStaff();
+
+      // --- رسائل كل غرفة ---
+      match /messages/{messageId} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+                      && request.resource.data.senderId == request.auth.uid
+                      // الرتبة المُرسَلة مع الرسالة يجب أن تطابق رتبة المستخدم الفعلية
+                      && request.resource.data.senderRank == myRank()
+                      && request.resource.data.text.size() > 0
+                      && request.resource.data.text.size() <= 500;
+        // حذف الرسالة: صاحبها، أو أحد الإدارة (تنظيف الغرفة)
+        allow delete: if signedIn()
+                      && (resource.data.senderId == request.auth.uid || isStaff());
+        allow update: if false;
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+@import "./tokens.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-night);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(201, 161, 90, 0.06), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(76, 140, 130, 0.05), transparent 45%);
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  color: var(--color-brass-bright);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+a {
+  color: inherit;
+}
+
+button, input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brass-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* === العنصر المميز: فاصل نجمي مستوحى من زخارف المخطوطات ===
+   يُستخدم للفصل بين مجموعات الرسائل حسب اليوم، بدل خط عادي */
+.myth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-parchment-dim);
+  font-size: var(--text-xs);
+  margin: var(--space-4) 0;
+  user-select: none;
+}
+
+.myth-divider::before,
+.myth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--dir, right), transparent, var(--color-line), transparent);
+}
+
+.myth-divider .star {
+  color: var(--color-brass);
+  font-size: 0.9em;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
