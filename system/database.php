@@ -2,8 +2,8 @@
 // base system prefix
 define('BOOM_PREFIX', '');
 
-
-define('BOOM_DOMAIN', 'https://arab-chat-an-experience.up.railway.app/');
+// optional base domain
+define('BOOM_DOMAIN', '');
 
 // default redis configuration
 define('REDIS_IP', '127.0.0.1');
