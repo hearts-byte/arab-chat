@@ -14,26 +14,36 @@ if(checkRateLimit()){
 
 mysqli_report(MYSQLI_REPORT_OFF);
 $mysqli = @new mysqli(BOOM_DHOST, BOOM_DUSER, BOOM_DPASS, BOOM_DNAME);
-
-// التعديل هنا: فرض قيمة 1 لنظام التثبيت لتجاوز صفحة الإعداد
-$chat_install = 1;
-
-if(isset($_COOKIE[BOOM_PREFIX . 'userid'], $_COOKIE[BOOM_PREFIX . 'utk'])){
-	$ident = escape($_COOKIE[BOOM_PREFIX . 'userid'], true);
-	$pass = escape($_COOKIE[BOOM_PREFIX . 'utk']);
-	$data = getUserSession($ident, $pass);
-	if(empty($data)){
-		clearUserSession();
+if (mysqli_connect_errno() || BOOM_INSTALL != 1) {
+	if(BOOM_INSTALL != 1){
+		$chat_install = 2;
 	}
-	else if(!validSession()){
-		$data = [];
-		clearUserSession();
+	else{
+		$chat_install = 3;
 	}
 }
-
-define('BOOM_LANG', getLanguage());
-require("language/" . BOOM_LANG . "/language.php");
-require("language/" . BOOM_LANG . "/response.php");
-
-date_default_timezone_set("{$setting['timezone']}");
+else{
+	$chat_install = 1;
+	if(isset($_COOKIE[BOOM_PREFIX . 'userid'], $_COOKIE[BOOM_PREFIX . 'utk'])){
+		$ident = escape($_COOKIE[BOOM_PREFIX . 'userid'], true);
+		$pass = escape($_COOKIE[BOOM_PREFIX . 'utk']);
+		$data = getUserSession($ident, $pass);
+		if(empty($data)){
+			clearUserSession();
+		}
+		else if(!validSession()){
+			$data = [];
+			clearUserSession();
+		}
+	}
+	define('BOOM_LANG', getLanguage());
+	require("language/" . BOOM_LANG . "/language.php");
+	require("language/" . BOOM_LANG . "/response.php");
+}
+if($chat_install == 1){
+	date_default_timezone_set("{$setting['timezone']}");
+}
+else {
+	date_default_timezone_set("America/Toronto");
+}
 ?>
