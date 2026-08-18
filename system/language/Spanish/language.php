@@ -964,9 +964,4 @@ $lang['info_warn'] = 'Ha alcanzado el número máximo de modificaciones permitid
 $lang['report_limit'] = 'Ha alcanzado el número máximo de reportes activos. Por favor, espere a que el soporte procese los reportes actuales antes de enviar uno nuevo.';
 $lang['data_deleted'] = 'Los datos a los que intenta acceder ya han sido eliminados.';
 $lang['room_requirement'] = 'Lamentablemente, no cumple con los requisitos para ingresar a esta sala.';
-$lang['sel'] = 'Seleccionar';
-$lang['pstyle'] = 'Estilo de perfil';
-$lang['allow_pstyle'] = 'Permitir estilo de perfil';
-$lang['remove_pstyle'] = 'Eliminar el estilo actual';
-$lang['style'] = 'Estilo';
 ?>

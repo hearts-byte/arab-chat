@@ -47,7 +47,7 @@ ul li.ch_dlogs:nth-child(odd of .ch_logs) { background:rgb(0,0,0,0.1); }
 .olay { background-color:rgba(0,0,0,0.5); color:#fff; }
 .dark_olay { background-color:rgba(0,0,0,0.6); color:#fff; }
 .cover_text { text-shadow:0 0 2px rgba(0, 0, 0, .8); }
-.avatar_profile, .avatar_pstyle { border:2px solid #fff; }
+.avatar_profile { border:2px solid #fff; }
 .sub_list_active { border:2px solid #fff; }
 .avavatar { border:2px solid #fff; }
 .grad_olay { background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%); }

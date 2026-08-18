@@ -33,6 +33,10 @@ adminSaveNote = function(id){
 		target: id,
 		user_note: $('#set_user_note').val(),
 		}, function(response) {
+			if(response == 1){
+				hideOver();
+				callSuccess();
+			}
 	}, 'json');		
 }
 adminChangeName = function(u){
@@ -341,6 +345,7 @@ removeHistory = function(target, id){
 		}, function(response) {
 			if(response == 1){
 				$('.hist'+id).replaceWith("");
+				callSuccess(system.actionComplete);
 			}
 	}, 'json');
 }
@@ -559,11 +564,15 @@ getIpDetails = function(id){
 	$.post('system/action/action_staff.php', {
 		get_ip:id,
 		}, function(response) {
-			if(response.code == 1){
-				$('#ip_details').html(response.data).show();
+			if(response == 0){
+				callError(system.error);
 			}
-	}, 'json');
+			else {
+				$('#ip_details').html(response).show();
+			}
+	});
 }
+
 
 adminRemoveAvatar = function(id){
 	$.post('system/action/avatar.php', {

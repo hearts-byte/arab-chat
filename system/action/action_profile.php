@@ -75,10 +75,10 @@ if (isset($_POST['edit_username'], $_POST['new_name'])) {
         }
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_name = '$new_name' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_name = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $new_name, $data['user_id']);
     
-    if ($mysqli->affected_rows > 0) {
+    if ($stmt->execute()) {
         boomConsole('change_name', array('custom' => $data['user_name']));
         changeNameLog($data, $new_name);
         redisUpdateUser($data['user_id']);
@@ -86,6 +86,7 @@ if (isset($_POST['edit_username'], $_POST['new_name'])) {
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
@@ -99,15 +100,16 @@ if (isset($_POST['save_color'], $_POST['save_bold'], $_POST['save_font'])) {
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET bccolor = '$c', bcbold = '$b', bcfont = '$f' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET bccolor = ?, bcbold = ?, bcfont = ? WHERE user_id = ?");
+    $stmt->bind_param("sssi", $c, $b, $f, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
@@ -134,56 +136,16 @@ if (isset($_POST['save_mood'])) {
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_mood = '$mood' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_mood = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $mood, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('action_complete');
     } else {
         echo boomError('error');
     }
-    die();
-}
-
-if (isset($_POST['save_pstyle'])) {
-    $pstyle = escape($_POST['save_pstyle']);
-    
-    if(!canProfileStyle()){
-        die();
-    }
-    
-    if ($pstyle == $data['user_pstyle']) {
-        echo boomSuccess('action_complete');
-        die();
-    }
-    
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_pstyle = '$pstyle' WHERE user_id = '$user_id'");
-    
-    if ($mysqli->affected_rows >= 0) {
-        redisUpdateUser($data['user_id']);
-        echo boomSuccess('action_complete');
-    } else {
-        echo boomError('error');
-    }
-    die();
-}
-
-if (isset($_POST['remove_pstyle'])) {
-    if(!canProfileStyle()){
-        die();
-    }
-    
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_pstyle = '' WHERE user_id = '$user_id'");
-    
-    if($mysqli->affected_rows > 0){
-        redisUpdateUser($data['user_id']);
-        echo boomSuccess('action_complete');
-    } else {
-        echo boomError('error');
-    }
+    $stmt->close();
     die();
 }
 
@@ -210,15 +172,16 @@ if (isset($_POST['save_info'], $_POST['birth'], $_POST['gender'])) {
         $avatar = myAvatar($data['user_tumb']);
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_birth = '$birth', user_age = '$age', user_sex = '$gender' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_birth = ?, user_age = ?, user_sex = ? WHERE user_id = ?");
+    $stmt->bind_param("sisi", $birth, $age, $gender, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomCode(0, array('message' => boomError('error')));
     }
+    $stmt->close();
     die();
 }
 
@@ -236,15 +199,16 @@ if (isset($_POST['save_about'], $_POST['about'])) {
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users_data SET user_about = '$about' WHERE uid = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users_data SET user_about = ? WHERE uid = ?");
+    $stmt->bind_param("si", $about, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
@@ -257,17 +221,19 @@ if (isset($_POST['my_username_color'], $_POST['my_username_font'])) {
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_color = '$color', user_font = '$font' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_color = ?, user_font = ? WHERE user_id = ?");
+    $stmt->bind_param("ssi", $color, $font, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
+
 
 if (isset($_POST['change_sound'], $_POST['chat_sound'], $_POST['private_sound'], $_POST['notify_sound'], $_POST['name_sound'])) {
     $chat_sound = escape($_POST['chat_sound']);
@@ -282,15 +248,16 @@ if (isset($_POST['change_sound'], $_POST['chat_sound'], $_POST['private_sound'],
         $sound = '0';
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_sound = '$sound' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_sound = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $sound, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomCode(1, array('data' => $sound, 'message' => boomSuccess('saved')));
     } else {
         echo boomCode(0, array('message' => boomError('error')));
     }
+    $stmt->close();
     die();
 }
 
@@ -304,22 +271,23 @@ if (isset($_POST['save_preference'])) {
         }
     }
     
-    $set_pmusic = (int)escape($_POST['set_pmusic']);
-    $set_private_mode = (int)escape($_POST['set_private_mode']);
-    $save_ulogin = (int)escape($_POST['save_ulogin']);
-    $set_user_call = (int)escape($_POST['set_user_call']);
-    $set_ufriend = (int)escape($_POST['set_ufriend']);
-    $set_user_bubble = (int)escape($_POST['set_user_bubble']);
-    $user_id = (int)$data['user_id'];
+    $set_pmusic = escape($_POST['set_pmusic']);
+    $set_private_mode = escape($_POST['set_private_mode']);
+    $save_ulogin = escape($_POST['save_ulogin']);
+    $set_user_call = escape($_POST['set_user_call']);
+    $set_ufriend = escape($_POST['set_ufriend']);
+    $set_user_bubble = escape($_POST['set_user_bubble']);
 
-    $mysqli->query("UPDATE boom_users SET pmusic = '$set_pmusic', user_private = '$set_private_mode', ulogin = '$save_ulogin', user_call = '$set_user_call', ufriend = '$set_ufriend', user_bubble = '$set_user_bubble' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET pmusic = ?, user_private = ?, ulogin = ?, user_call = ?, ufriend = ?, user_bubble = ? WHERE user_id = ?");
+    $stmt->bind_param("iiiiiii", $set_pmusic, $set_private_mode, $save_ulogin, $set_user_call, $set_ufriend, $set_user_bubble, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
@@ -333,15 +301,16 @@ if (isset($_POST['user_timezone'], $_POST['user_language'], $_POST['user_country
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_timezone = '$user_timezone', user_language = '$user_language', country = '$user_country' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_timezone = ?, user_language = ?, country = ? WHERE user_id = ?");
+    $stmt->bind_param("sssi", $user_timezone, $user_language, $user_country, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
@@ -353,34 +322,36 @@ if (isset($_POST['relationship'])) {
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_relation = '$relationship' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_relation = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $relationship, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
 if (isset($_POST['save_shared'])) {
-    $ashare = isset($_POST['ashare']) ? (int)escape($_POST['ashare']) : 0;
-    $sshare = isset($_POST['sshare']) ? (int)escape($_POST['sshare']) : 0;
-    $fshare = isset($_POST['fshare']) ? (int)escape($_POST['fshare']) : 0;
-    $gshare = isset($_POST['gshare']) ? (int)escape($_POST['gshare']) : 0;
-    $lshare = isset($_POST['lshare']) ? (int)escape($_POST['lshare']) : 0;
-    $user_id = (int)$data['user_id'];
+    $ashare = isset($_POST['ashare']) ? escape($_POST['ashare']) : '0';
+    $sshare = isset($_POST['sshare']) ? escape($_POST['sshare']) : '0';
+    $fshare = isset($_POST['fshare']) ? escape($_POST['fshare']) : '0';
+    $gshare = isset($_POST['gshare']) ? escape($_POST['gshare']) : '0';
+    $lshare = isset($_POST['lshare']) ? escape($_POST['lshare']) : '0';
     
-    $mysqli->query("UPDATE boom_users SET ashare = '$ashare', sshare = '$sshare', fshare = '$fshare', gshare = '$gshare', lshare = '$lshare' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET ashare = ?, sshare = ?, fshare = ?, gshare = ?, lshare = ? WHERE user_id = ?");
+    $stmt->bind_param("iiiiii", $ashare, $sshare, $fshare, $gshare, $lshare, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         redisUpdateUser($data['user_id']);
         echo boomSuccess('saved');
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 
@@ -392,16 +363,17 @@ if (isset($_POST['set_user_theme'])) {
         die();
     }
     
-    $user_id = (int)$data['user_id'];
-    $mysqli->query("UPDATE boom_users SET user_theme = '$theme' WHERE user_id = '$user_id'");
+    $stmt = $mysqli->prepare("UPDATE boom_users SET user_theme = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $theme, $data['user_id']);
     
-    if ($mysqli->affected_rows >= 0) {
+    if ($stmt->execute()) {
         $logo = getLogo($theme);
         redisUpdateUser($data['user_id']);
         echo boomCode(1, array('theme' => $theme, 'logo' => $logo, 'message' => boomSuccess('saved')));
     } else {
         echo boomError('error');
     }
+    $stmt->close();
     die();
 }
 

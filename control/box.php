@@ -1,7 +1,4 @@
 <?php
-if(!defined('BOOM')){
-	die();
-}
 ?>
 <div id="top_notify"></div>
 <div id="small_modal" class="small_modal_out modal_back">

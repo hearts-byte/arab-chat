@@ -135,16 +135,24 @@ showCallRequest = function(d){
 }
 
 checkCall = function(ncall){
-	if(ncall > uCall){
+	if(ncall > 0 && ncall != uCall){
 		uCall = ncall;
 		$.post('system/action/action_call.php', { 
-				check_call: inCall(),
+				check_call: ncall,
 			}, function(response) {
 				if(response.code == 1){
 					showCallRequest(response.data);
 				}
+				else if(response.code == 0){
+					uCall = 0;
+					hideCallRequest();
+				}
 		}, 'json');	
-	}	
+	}
+	else if(ncall == 0 && uCall > 0){
+		uCall = 0;
+		hideCallRequest();
+	}
 }
 
 inCall = function(){

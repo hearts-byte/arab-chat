@@ -2765,45 +2765,6 @@ function validColor($c) {
         return true;
     }
 }
-function validProfileStyle($c){
-	if (is_int($c) && $c > 0 && $c < 99999) {
-		return true;
-	}
-}
-function profileStyle($user){
-	if($user['user_pstyle'] > 0){
-		return true;
-	}
-}
-function canProfileStyle(){
-	global $setting, $data;
-	if(boomAllow($setting['allow_pstyle'])){
-		return true;
-	}
-}
-function boomRewriteStyleCustom($css, $id){
-	if(empty($css) || !$id){
-		return '';
-	}
-	$id = (int) $id;
-	return str_replace(
-		[
-			'.pstylewrap',
-			'.pstyletop',
-			'.pstyleavatar',
-			'.pstylemenu',
-			'.pstylecontent'
-		],
-		[
-			'.pstylewrap'.$id,
-			'.pstyletop'.$id,
-			'.pstyleavatar'.$id,
-			'.pstylemenu'.$id,
-			'.pstylecontent'.$id
-		],
-		$css
-	);
-}
 function getLanguage(){
 	global $mysqli, $setting, $data;
 	$l = $setting['language'];
@@ -3139,7 +3100,6 @@ function cleanList($type, $c = 0){
 			array_push($user, $user_list['user_id']);
 			array_push($av, $user_list['user_tumb']);
 			array_push($ac, $user_list['user_cover']);
-			array_push($pm, $user_list['user_pmusic']);
 		}
 		if(!empty($user)){
 			$list = implode(", ", $user);
@@ -5410,32 +5370,42 @@ function groupCallActive($c){
 }
 function canCallUser($user){
 	global $data;
-	if(empty($user)){
+
+	if (empty($user)) {
 		return false;
 	}
-	if(mySelf($user['user_id'])){
+	if (mySelf($user['user_id'])) {
 		return false;
 	}
-	if(isBot($user)){
+	if (isBot($user)) {
 		return false;
 	}
-	if($user['last_action'] < getDelay()){
+	if ($user['last_action'] < getDelay()) {
 		return false;
 	}
-	if($user['user_call'] == 0){ 
+	if ((int)$user['user_call'] === 0) {
 		return false;
 	}
-	if($user['user_call'] == 2 && !haveFriendship($user)){
+	if ((int)$user['user_call'] === 2 && !haveFriendship($user)) {
 		return false;
 	}
-	if($user['user_call'] == 3 && isGuest($data)){
+	if ((int)$user['user_call'] === 3 && isGuest($data)) {
 		return false;
 	}
-	if(ignored($user) || ignoring($user)){
+
+	$ignoredList  = loadIgnore($data['user_id']);
+	$ignoringList = loadIgnore($user['user_id']);
+
+	if (in_array($user['user_id'], $ignoredList, true)) {
 		return false;
 	}
+	if (in_array($data['user_id'], $ignoringList, true)) {
+		return false;
+	}
+
 	return true;
 }
+
 function acceptCall($call){
 	global $mysqli;
 	$mysqli->query("UPDATE boom_call SET call_status = '1' WHERE call_id = '{$call['call_id']}'");

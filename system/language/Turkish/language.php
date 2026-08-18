@@ -964,9 +964,4 @@ $lang['info_warn'] = 'Bu bilgiler için izin verilen maksimum değişiklik sayı
 $lang['report_limit'] = 'Maksimum aktif rapor sayısına ulaştınız. Yeni bir rapor göndermeden önce mevcut raporların işlenmesini bekleyiniz.';
 $lang['data_deleted'] = 'Erişmeye çalıştığınız veriler zaten silinmiş.';
 $lang['room_requirement'] = 'Maalesef bu odaya girmek için gerekli şartları karşılamıyorsunuz.';
-$lang['sel'] = 'Seç';
-$lang['pstyle'] = 'Profil stili';
-$lang['allow_pstyle'] = 'Profil stiline izin ver';
-$lang['remove_pstyle'] = 'Mevcut stili kaldır';
-$lang['style'] = 'Stil';
 ?>

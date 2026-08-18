@@ -289,6 +289,7 @@ saveEmail = function(){
 			}
 			else if(response.code == 1){
 				hideOver();
+				callSuccess();
 			}
 	}, 'json');	
 }
@@ -310,6 +311,7 @@ changePassword = function(){
 			}, function(response) {
 				if(response.code == 1){
 					hideOver();
+					callSuccess();
 				}
 		}, 'json');
 	}
@@ -322,6 +324,8 @@ deleteMyAccount = function(){
 			if(response.code == 1){
 				$('#del_account_btn').replaceWith("");
 				hideOver();
+				callSuccess();
+
 			}
 			else if(response.code == 2){
 				$('#delete_account_password').val('');
@@ -659,14 +663,6 @@ getTextOptions = function(){
 		}, function(response) {
 			if(response){
 				overModal(response);
-			}
-	});
-}
-getProfileStyle = function(){
-	$.post('system/box/profile_style.php', {
-		}, function(response) {
-			if(response){
-				overModal(response, 500);
 			}
 	});
 }
@@ -1130,28 +1126,6 @@ uploadChat = function(f){
 			})
 		}
 	}
-}
-
-// profile style
-
-function savePstyle(v){
-	$.post('system/action/action_profile.php', {
-		save_pstyle: v,
-	}, function(response){
-		if(response.code == 1){
-			$('#pstyle_remove').removeClass('hidden');
-		}
-	}, 'json');
-}
-
-function removePstyle(){
-	$.post('system/action/action_profile.php', {
-		remove_pstyle: 1,
-	}, function(response){
-		if(response.code == 1){
-			$('#pstyle_remove').addClass('hidden');
-		}
-	}, 'json');
 }
 
 // up functions controller

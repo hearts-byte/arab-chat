@@ -208,7 +208,7 @@ if (($_POST["check"] ?? null) !== "1") {
                 </div>
                 <div class="form-group">
                     <label class="form-label">Database Password</label>
-                    <input id="install_db_password" class="form-control required" type="password">
+                    <input id="install_db_password" class="form-control" type="password">
                 </div>
             </div>
             <div class="actions">
@@ -225,14 +225,6 @@ if (($_POST["check"] ?? null) !== "1") {
                 <div class="form-group full">
                     <label class="form-label">License Status</label>
                     <input id="install_license" class="form-control" type="text" value="Active / Nulled Version" readonly>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Developer #1</label>
-                    <input id="install_store_user" class="form-control" type="text" value="FXNTXM" readonly>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Developer #2</label>
-                    <input id="install_store_pass" class="form-control" type="text" value="BlackHunter" readonly>
                 </div>
             </div>
             <div class="actions">

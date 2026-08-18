@@ -1817,12 +1817,6 @@ function settingDetails(){
 	$set = $get_setting->fetch_assoc();
 	return $set;
 }
-function styleDetails($id){
-	global $mysqli;
-	$get_style = $mysqli->query("SELECT * FROM boom_style WHERE id = '$id'");
-	$set = $get_style->fetch_assoc();
-	return $set;
-}
 function addonsDetails($name){
 	global $mysqli;
 	$addons = [];
@@ -2201,7 +2195,7 @@ function countryFlag($country){
 }
 function checkRateLimit(){
 	global $setting;
-	if(isset($setting['use_rate']) && $setting['use_rate'] == 1){
+	if($setting['use_rate'] == 1){
 		if(isset($_SESSION[BOOM_PREFIX . 'fignore']) && $_SESSION[BOOM_PREFIX . 'fignore'] > time()){
 			return true;
 		}

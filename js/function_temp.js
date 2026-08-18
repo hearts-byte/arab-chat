@@ -126,8 +126,8 @@ textLogTemplate = (t) => {
 				</div>
 				<div class="log_content">
 					${quoted}
-					<div class="chat_message tpad3">
-						<div class="chat_tmessage ${textColor(t)}">${t.log_content}</div>
+					<div class="chat_message chat_tmessage tpad3">
+						<div class="${textColor(t)}">${t.log_content}</div>
 					</div>
 				</div>
 			</div>
@@ -149,8 +149,8 @@ duoLogTemplate = (t) => {
 				</div>
 				<div class="log_content">
 					${quoted}
-					<div class="chat_message tpad3">
-						<div class="chat_tmessage ${textColor(t)}">${t.log_content}</div>
+					<div class="chat_message chat_tmessage tpad3">
+						<div class="${textColor(t)}">${t.log_content}</div>
 					</div>
 				</div>
 			</div>
@@ -335,7 +335,7 @@ renderLeftMenu = (aIcon, aText, aCall, optMenu = '') => {
 	}
 	if(leftMode == 2){
 		qmenu = `
-			<div class="fmenu_item bhover lmenu_item" onclick="${aCall}">
+			<div class="fmenu_item bhover lmenu_item" onclick="${aCall}" title="${aText}">
 				<div class="fmenu_icon">
 					<i class="fa fa-${aIcon} menui"></i>
 				</div>

@@ -61,24 +61,6 @@ function adminAddonsList(){
 		return emptyZone($lang['no_addons']);
 	}
 }
-function adminStyleList(){
-	global $mysqli, $lang;
-	$style_list = '';
-	$dir = glob(BOOM_PATH . '/pstyle/*' , GLOB_ONLYDIR);
-	foreach($dir as $dirnew){
-		$style = escape(boomSanitize(str_replace(BOOM_PATH . '/pstyle/', '', $dirnew)));
-		if(file_exists(BOOM_PATH . '/pstyle/' . $style . '/install.php')){
-			$checkstyle = $mysqli->query("SELECT * FROM boom_style WHERE style_ref = '$style'");
-			if($checkstyle->num_rows === 0){
-				$style_list .= boomTemplate('element/style_install', $style);
-			}
-		}
-	}
-	if(empty($style_list)){
-		return emptyZone($lang['no_data']);
-	}
-	return $style_list;
-}
 function getDashboard(){
 	global $mysqli;
 	$delay = getDelay();

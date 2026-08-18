@@ -964,9 +964,4 @@ $lang['info_warn'] = 'Dosegnuo/la si maksimalan broj izmjena za ove podatke. Ako
 $lang['report_limit'] = 'Dosegnuo/la si maksimalan broj aktivnih prijava. Pričekaj da podrška obradi postojeće prije slanja nove.';
 $lang['data_deleted'] = 'Podaci koje tražiš već su uklonjeni.';
 $lang['room_requirement'] = 'Nažalost, ne ispunjavaš uvjete za ulazak u ovu sobu.';
-$lang['sel'] = 'Odaberi';
-$lang['pstyle'] = 'Stil profila';
-$lang['allow_pstyle'] = 'Dopusti stil profila';
-$lang['remove_pstyle'] = 'Ukloni trenutni stil';
-$lang['style'] = 'Stil';
 ?>

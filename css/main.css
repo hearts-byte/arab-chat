@@ -1404,26 +1404,6 @@ canvas#view { width: 100%; height: 100%; display:block; }
 /* warning box */
 .boom_alert { position:relative; border-radius:5px; padding:12px 15px; border:1px solid transparent; width:100%; }
 
-/* profile style */
-.pstyle_container { max-width:400px; margin:0 auto; }
-.pstyle_top { background-size: cover !important; background-position: 50% 50% !important; position:relative; }
-.pstyle_cover .cover_size { height:150px !important; }
-.pstyle_avatar img { width:60px; height:60px; border-radius:50%; }
-.pstyle_name { font-weight:bold; font-size:15px; }
-.pstyle_rank { font-weight:bold; font-size:11px; }
-.pstyle_bottom { font-size:12px; position:relative; }
-.pstyle_menu { padding:8px 0; }
-.pstyle_menu li { padding:5px 8px !important; }
-.pstyle_choice { padding-top:15px; }
-.pstyle_container .pstyle_box { overflow:hidden; }
-.pstyle_box { border-radius:20px; }
-.pstyle_top_menu { position:absolute; top:10px; }
-.pstyle_top_item { width:30px; height:30px; font-size:16px; }
-.pstyle_olay { padding:0 10px; font-size:13px; }
-.pstyle_olay_item { padding:5px 8px; border-radius:5px; display:inline-block; }
-.pstyle_data { padding-top:40px; }
-.pstylecontent { border-radius: 0 0 20px 20px; }
-
 /* radius border for item */
 .blist, .blisting { border-radius:0px; }
 .brad0 { border-radius:0px; }

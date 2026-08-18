@@ -978,16 +978,6 @@ setUserRoom();
 				</div>
 			</div>
 			<?php } ?>
-			<?php if(canProfileStyle()){ ?>
-			<div class="fmenu_item bhover mmenu_item" onclick="getProfileStyle();">
-				<div class="fmenu_icon">
-					<i class="fa fa-address-card menui"></i>
-				</div>
-				<div class="fmenu_text">
-					<?php echo $lang['pstyle']; ?>
-				</div>
-			</div>
-			<?php } ?>
 			<div class="fmenu_item bhover mmenu_item" onclick="getSoundSetting();">
 				<div class="fmenu_icon">
 					<i class="fa fa-volume-up menui"></i>

@@ -964,9 +964,5 @@ $lang['info_warn'] = 'Tu as atteint la limite de modification pour ces informati
 $lang['report_limit'] = 'Tu as atteint le nombre maximum de signalements actifs. Attends que l’équipe traite les signalements en cours avant d’en envoyer un nouveau.';
 $lang['data_deleted'] = 'Les données que tu essaies d’accéder ont déjà été supprimées.';
 $lang['room_requirement'] = 'Désolé, tu ne remplis pas les conditions pour entrer dans cette salle.';
-$lang['sel'] = 'Sélectionner';
-$lang['pstyle'] = 'Style du profil';
-$lang['allow_pstyle'] = 'Autoriser le style du profil';
-$lang['remove_pstyle'] = 'Supprimer le style actuel';
-$lang['style'] = 'Style';
+
 ?>

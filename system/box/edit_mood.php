@@ -9,7 +9,7 @@ if(!canMood()){
 </div>
 <div class="modal_content">
 	<div class="mood_content">
-		<input id="set_mood" maxlength="30" class="full_input" value="<?php echo $data['user_mood']; ?>" autocomplete="off" type="text"/>
+		<input id="set_mood" maxlength="40" class="full_input" value="<?php echo $data['user_mood']; ?>" autocomplete="off" type="text"/>
 	</div>
 </div>
 <div class="modal_control">

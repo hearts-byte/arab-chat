@@ -55,7 +55,6 @@ $side_menu .= pageMenu('admin/setting_ip.php', 'ban', $lang['manage_ban'], $sett
 $side_menu .= pageMenu('admin/setting_rooms.php', 'home', $lang['manage_room'], $setting['can_mroom']);
 $side_menu .= pageMenuNotify('admin/setting_contact.php', 'envelope', $lang['manage_contact'], 'contact_notify', $setting['can_mcontact']);
 $side_menu .= pageMenu('admin/setting_addons.php', 'puzzle-piece', $lang['manage_addons'], $setting['can_maddons']);
-$side_menu .= pageMenu('admin/setting_style.php', 'address-card', $lang['pstyle'], 100);
 $side_menu .= pageMenu('admin/setting_console.php', 'terminal', $lang['system_logs'], $setting['can_mlogs']);
 
 

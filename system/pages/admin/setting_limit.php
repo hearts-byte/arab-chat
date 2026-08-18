@@ -42,12 +42,6 @@ if(!boomAllow(100)){
 						</select>
 					</div>
 					<div class="setting_element">
-						<p class="label"><?php echo $lang['allow_pstyle']; ?></p>
-						<select id="set_allow_pstyle">
-							<?php echo listRankMember($setting['allow_pstyle']); ?>
-						</select>
-					</div>
-					<div class="setting_element">
 						<p class="label"><?php echo $lang['allow_cover']; ?></p>
 						<select id="set_allow_cover">
 							<?php echo listRank($setting['allow_cover']); ?>

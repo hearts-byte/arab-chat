@@ -964,9 +964,4 @@ $lang['info_warn'] = 'U heeft het maximale aantal toegestane wijzigingen voor de
 $lang['report_limit'] = 'U heeft het maximale aantal actieve meldingen bereikt. Wacht alstublieft tot de ondersteuning uw huidige meldingen heeft verwerkt voordat u een nieuwe indient.';
 $lang['data_deleted'] = 'De gegevens die u probeert te openen zijn al verwijderd.';
 $lang['room_requirement'] = 'Helaas voldoet u niet aan de vereisten om deze kamer te betreden.';
-$lang['sel'] = 'Selecteren';
-$lang['pstyle'] = 'Profielstijl';
-$lang['allow_pstyle'] = 'Profielstijl toestaan';
-$lang['remove_pstyle'] = 'Huidige stijl verwijderen';
-$lang['style'] = 'Stijl';
 ?>

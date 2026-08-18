@@ -185,6 +185,7 @@ closeTopNotification = function(item){
     });
 }
 
+
 textArea = function(elem, height) {
     $(elem).css('height', height + 'px');
     $(elem).css('height', (elem.scrollHeight)+"px");

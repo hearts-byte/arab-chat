@@ -393,7 +393,7 @@ function handleAdminUserPermission($mysqli) {
         "set_allow_wupload", "set_allow_video", "set_allow_audio", "set_allow_zip", "set_allow_main",
         "set_allow_private", "set_allow_quote", "set_allow_pquote", "set_emo_plus", "set_allow_direct",
         "set_allow_room", "set_allow_vroom", "set_allow_theme", "set_allow_history", "set_allow_colors",
-        "set_allow_grad", "set_allow_neon", "set_allow_font", "set_allow_name_color", "set_allow_pstyle", "set_allow_name_grad",
+        "set_allow_grad", "set_allow_neon", "set_allow_font", "set_allow_name_color", "set_allow_name_grad",
         "set_allow_name_neon", "set_allow_name_font", "set_allow_name", "set_allow_pmusic", "set_allow_mood", "set_allow_about",
         "set_allow_report", "set_allow_scontent", "set_allow_rnews", "set_word_proof"
     ];

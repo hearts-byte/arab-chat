@@ -55,12 +55,11 @@ if (($_POST['check'] ?? null) !== '1') {
         <i class="fa fa-check-circle"></i>
     </div>
     <h3 class="success-title">Installation Complete</h3>
-    <p class="success-desc">Codychat 10.1 has been successfully installed and configured on your server.</p>
+    <p class="success-desc">Codychat 10.0 has been successfully installed and configured on your server.</p>
     
     <div class="info-box">
         <p>Edition: <span class="hl">Nulled</span></p>
         <p>Features: <span class="hl">Fully Unlocked</span></p>
-        <p>Developers: <span class="hl">FXNTXM & BlackHunter</span></p>
     </div>
     
     <button onclick="endInstall()" class="btn">Access Application</button>

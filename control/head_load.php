@@ -41,6 +41,7 @@ if(boomLogged() && !boomAllow($page['page_rank'])){
 <link id="actual_theme" rel="stylesheet" type="text/css" href="css/themes/<?php echo getTheme(); ?><?php echo $bbfv; ?>" />
 <link id="gradient_sheet" rel="stylesheet" type="text/css" href="css/bubbles.css<?php echo $bbfv; ?>" />
 <link rel="stylesheet" type="text/css" href="css/responsive.css<?php echo $bbfv; ?>" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script data-cfasync="false" src="js/jquery-3.5.1.min.js<?php echo $bbfv; ?>"></script>
 <script data-cfasync="false" src="js/fancy/jquery.fancybox.js<?php echo $bbfv; ?>"></script>
 <script data-cfasync="false" src="js/jqueryui/jquery-ui.min.js<?php echo $bbfv; ?>"></script>
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <?php if(boomLogged()){ ?>
 <script data-cfasync="false" src="js/function_logged.js<?php echo $bbfv; ?>"></script>
 <script data-cfasync="false" src="js/function_avatar.js<?php echo $bbfv; ?>"></script>
+<script data-cfasync="false" src="js/function_call.js<?php echo $bbfv; ?>"></script>
 <?php } ?>
 <?php if(boomLogged() && isStaff($data)){ ?>
 <script data-cfasync="false" src="js/function_staff.js<?php echo $bbfv; ?>"></script>

@@ -964,9 +964,4 @@ $lang['info_warn'] = 'Sie haben die maximal zulässige Anzahl an Änderungen fü
 $lang['report_limit'] = 'Sie haben die maximale Anzahl aktiver Meldungen erreicht. Bitte warten Sie, bis der Support Ihre bestehenden Meldungen bearbeitet hat, bevor Sie eine neue einreichen.';
 $lang['data_deleted'] = 'Die Daten, auf die Sie zugreifen möchten, wurden bereits gelöscht.';
 $lang['room_requirement'] = 'Leider erfüllen Sie nicht die Voraussetzungen, um diesen Raum zu betreten.';
-$lang['sel'] = 'Auswählen';
-$lang['pstyle'] = 'Profilstil';
-$lang['allow_pstyle'] = 'Profilstil erlauben';
-$lang['remove_pstyle'] = 'Aktuellen Stil entfernen';
-$lang['style'] = 'Stil';
 ?>

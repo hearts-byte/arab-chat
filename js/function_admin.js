@@ -49,95 +49,6 @@ openAddPlayer = function(){
 			showModal(response, 500);
 	});	
 }
-openCreateProfileStyle = function(){
-	$.post('system/box/add_style.php', {
-		}, function(response) {
-			showModal(response, 500);
-	});	
-}
-openInstallProfileStyle = function(){
-	$.post('system/box/install_style.php', {
-		}, function(response) {
-			showModal(response, 400);
-	});	
-}
-editProfileStyle = function(i){
-	$.post('system/box/edit_style.php', {
-		style: i
-		}, function(response) {
-			if(response){
-				showModal(response, 500);
-			}
-	});	
-}
-installProfileStyle = function(i, id){
-	$.post('system/action/system_style.php', {
-		install_style:i,
-		}, function(response) {
-			$('#' + id).remove();
-			if(response.code == 1){
-				loadLob('admin/setting_style.php');
-				if ($('#style_listing').children().length === 0) {
-					hideModal();
-				}
-			}
-	}, 'json');	
-}
-createProfileStyle = function(){
-	if(!validForm('add_style_name')){
-		return false;
-	}
-	else {
-		$.post('system/action/system_style.php', {
-			create_style:$('#add_style_name').val(),
-			}, function(response) {
-				if(response.code == 1){
-					hideModal();
-					editProfileStyle(response.data);
-					loadLob('admin/setting_style.php');
-				}
-		}, 'json');	
-	}
-}
-deleteProfileStyle = function(i){
-	$.post('system/action/system_style.php', {
-		delete_style:i,
-		}, function(response) {
-			if(response.code == 1){
-				hideModal();
-				$('#astyle'+i).replaceWith('');
-			}
-	}, 'json');	
-}
-saveProfileStyle = function(i){
-	if(!validForm('set_style_name')){
-		return false;
-	}
-	else {
-		$.post('system/action/system_style.php', {
-			save_style:i,
-			style_name: $('#set_style_name').val(),
-			style_wrap: $('#set_style_wrap').val(),
-			style_top: $('#set_style_top').val(),
-			style_avatar: $('#set_style_avatar').val(),
-			style_menu: $('#set_style_menu').val(),
-			style_content: $('#set_style_content').val(),
-			style_custom: $('#set_style_custom').val(),
-			style_active: $('#set_style_active').val(),
-			}, function(response) {
-		}, 'json');	
-	}
-}
-previewProfileStyle = function(i){
-	$.post('system/box/style_preview.php', {
-		preview_style:i,
-		style_name: $('#add_style_name').val(),
-		}, function(response) {
-			if(response){
-				overModal(response, 500);
-			}
-	});	
-}
 addPlayer = function(){
 	var playerAlias = $('#add_stream_alias').val();
 	var playerUrl = $('#add_stream_url').val();
@@ -402,7 +313,6 @@ saveAdminUserPermission = function(){
 		set_allow_scontent: $('#set_allow_scontent').val(),
 		set_allow_rnews: $('#set_allow_rnews').val(),
 		set_word_proof: $('#set_word_proof').val(),
-		set_allow_pstyle: $('#set_allow_pstyle').val(),
 		}, function(response) {
 	}, 'json');	
 }
@@ -615,7 +525,7 @@ moreAdminSearch = function(ct){
 		last_critera: lastCt,
 		}, function(response) {
 			if(response.code == 1){
-				$('#search_admin_list').append(response.data);
+				$('#search_admin_list').append(response);
 			}
 			else {
 				$('#search_for_more').replaceWith("");
@@ -978,7 +888,6 @@ deleteGroupCall = function(id){
 
 $(document).ready(function(){
 	
-	//adminLoad();
 	reloadSystemConsole();
 	reloadConsoleLogs = setInterval(reloadSystemConsole, 4500);
 	
@@ -1043,7 +952,7 @@ $(document).ready(function(){
 		$.post('system/action/action_staff.php', {
 			delete_ip: ipdel,
 			}, function(response) {
-				if(response.code == 1){
+				if(response == 1){
 					$('#ipdel'+ipdel).replaceWith("");
 				}
 		}, 'json');	
@@ -1083,26 +992,6 @@ $(document).ready(function(){
 					$(this).hide();
 				}
 				else if(roomData.indexOf(searchRoom) > 0){
-					$(this).show();
-				}
-			});
-		}
-	});
-	
-	$(document).on('change, paste, keyup', '#search_admin_style', function(){
-		var searchStyle = $(this).val().toLowerCase();
-		if(searchStyle== ''){
-			$(".style_item").each(function(){
-				$(this).show();
-			});	
-		}
-		else {
-			$(".style_item").each(function(){
-				var styleData = $(this).text().toLowerCase();
-				if(styleData.indexOf(searchStyle) < 0){
-					$(this).hide();
-				}
-				else if(styleData.indexOf(searchStyle) > 0){
 					$(this).show();
 				}
 			});

@@ -8,7 +8,7 @@ if ($chat_install != 2) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Codychat 10.1 Installer</title>
+<title>Codychat 10.0 Installer</title>
 <link rel="shortcut icon" href="default_images/icon.png">
 <link rel="stylesheet" href="https://teens.mastivibe.com/chat/css/fontawesome/css/all.css">
 <script src="js/jquery-3.5.1.min.js"></script>
@@ -163,7 +163,7 @@ body {
     <div class="card">
         <div class="card-header">
             <img src="default_images/logo.png?v=11" alt="Logo">
-            <h2>Codychat 10.1</h2>
+            <h2>Codychat 10.0</h2>
             <p>Nulled Edition</p>
         </div>
         <div class="terms-box">
@@ -173,10 +173,6 @@ body {
                 <li><i class="fa fa-check"></i>Free to modify</li>
                 <li><i class="fa fa-info-circle"></i>No official support provided</li>
             </ul>
-        </div>
-        <div class="credits-text">
-            Provided by FXNTXM<br>
-            Patched by BlackHunter
         </div>
         <div class="agreement">
             <i class="fa fa-circle accept_install" value="0"></i>

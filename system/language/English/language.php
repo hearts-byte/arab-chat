@@ -964,9 +964,4 @@ $lang['info_warn'] = 'You have reached the maximum time allowed to modify this i
 $lang['report_limit'] = 'You have reached the maximum number of active reports allowed. Please wait for the staff to process your existing reports before submitting a new one.';
 $lang['data_deleted'] = 'The data you are trying to access has already been removed.';
 $lang['room_requirement'] = 'Sorry, you do not meet the requirements to enter this room.';
-$lang['sel'] = 'Select';
-$lang['pstyle'] = 'Profile style';
-$lang['allow_pstyle'] = 'Allow profile style';
-$lang['remove_pstyle'] = 'Remove current style';
-$lang['style'] = 'Style';
 ?>

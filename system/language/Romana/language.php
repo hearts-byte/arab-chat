@@ -964,9 +964,4 @@ $lang['info_warn'] = 'Ați atins numărul maxim permis de modificări pentru ace
 $lang['report_limit'] = 'Ați atins numărul maxim de raportări active. Vă rugăm să așteptați ca echipa de suport să proceseze raportările existente înainte de a trimite una nouă.';
 $lang['data_deleted'] = 'Datele pe care încercați să le accesați au fost deja șterse.';
 $lang['room_requirement'] = 'Din păcate, nu îndepliniți cerințele pentru a intra în această cameră.';
-$lang['sel'] = 'Selectează';
-$lang['pstyle'] = 'Stil de profil';
-$lang['allow_pstyle'] = 'Permite stilul de profil';
-$lang['remove_pstyle'] = 'Elimină stilul actual';
-$lang['style'] = 'Stil';
 ?>
